@@ -1,0 +1,6 @@
+..\Polynomial-Approximation\images\pic1.jpg
+..\Polynomial-Approximation\images\pic2.jpg
+..\Polynomial-Approximation\images\pic3.jpg
+..\Polynomial-Approximation\images\pic4.jpg
+..\Polynomial-Approximation\images\pic5.jpg
+
