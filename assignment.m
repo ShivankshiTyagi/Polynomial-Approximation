@@ -1,10 +1,11 @@
-fid = fopen('C:\Users\Shivankshi Tyagi\Desktop\Image processing\Image Processing using type 2 fuzzy theory\Code\images.txt');
+fid = fopen('..\Polynomial-Approximation\images.txt');
 tline = fgetl(fid);
 while ischar(tline)
   %disp(tline)
   global cc1;
   global A;
   global type;
+  global curve;
   originalimage =imread(tline);
   tline = fgetl(fid);
   figure,imshow(originalimage);
@@ -205,7 +206,8 @@ while ischar(tline)
   while(cc1.NumObjects!=0)
     [x_curveend,y_curveend]=three_functions(originalimage,x_curveend,y_curveend);
   endwhile
-
+  
+  figure,imshow(curve);
 end
 fclose(fid);
 
