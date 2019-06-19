@@ -1,7 +1,7 @@
-fid = fopen('images.txt');
+fid = fopen('C:\Users\Shivankshi Tyagi\Desktop\Image processing\Image Processing using type 2 fuzzy theory\Code\images.txt');
 tline = fgetl(fid);
 while ischar(tline)
-  disp(tline)
+  %disp(tline)
   global cc1;
   global A;
   global type;
@@ -40,21 +40,21 @@ while ischar(tline)
     x_coordinates(i)=props(curve_index).PixelList(i,1);
     y_coordinates(i)=props(curve_index).PixelList(i,2);
   end
-  y_coordinates(1)
-  y_coordinates(no_pixels)
-  x_coordinates(1)
-  x_coordinates(no_pixels)
-  m = y_coordinates(no_pixels)-y_coordinates(1)/x_coordinates(no_pixels)-x_coordinates(1)
+  y_coordinates(1);
+  y_coordinates(no_pixels);
+  x_coordinates(1);
+  x_coordinates(no_pixels);
+  m = y_coordinates(no_pixels)-y_coordinates(1)/x_coordinates(no_pixels)-x_coordinates(1);
   if y_coordinates(1)>y_coordinates(no_pixels)
-    x1 = (1- y_coordinates(no_pixels))/m +x_coordinates(no_pixels)
+    x1 = (1- y_coordinates(no_pixels))/m +x_coordinates(no_pixels);
     hold on 
       line([x_coordinates(no_pixels),x1],[y_coordinates(no_pixels),1],'Color','w','LineWidth',1)
-    hold off
+    %hold off
   else 
-    x1 = (1- y_coordinates(1))/m +x_coordinates(1)
+    x1 = (1- y_coordinates(1))/m +x_coordinates(1);
     hold on 
       line([x_coordinates(1),x1],[y_coordinates(1),1],'Color','w','LineWidth',1)
-    hold off
+    %hold off
   end
 
   %curve end points for initial curve
@@ -148,7 +148,7 @@ while ischar(tline)
     %%draw straight line between curve end coordinates and nearest curve coordinates
     hold on
       line([x_curveend,out(1)],[y_curveend,out(2)],'Color','w','LineWidth',1)
-    hold off
+    %hold off
     
     y_coordinates1={};
     x_coordinates1={};
@@ -182,7 +182,7 @@ while ischar(tline)
     %draw the curve
     hold on
       plot(x_coordinates1,y_coordinates1,'w');
-    hold off
+    %hold off
     
     %%Function 3: rectangle formation and cropping image
     if x_curveendnw-100>0
@@ -208,5 +208,4 @@ while ischar(tline)
 
 end
 fclose(fid);
-final_image=imread(curve);
-figure,imshow(final_image);
+
