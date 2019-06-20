@@ -1,4 +1,5 @@
-fid = fopen('..\Polynomial-Approximation\images.txt');
+clear all;
+fid = fopen('/home/sukh28/workspace/Polynomial-Approximation/images.txt');
 tline = fgetl(fid);
 while ischar(tline)
   %disp(tline)
@@ -6,6 +7,8 @@ while ischar(tline)
   global A;
   global type;
   global curve;
+  global finalx_cordinates;
+  global finaly_cordinates;
   originalimage =imread(tline);
   tline = fgetl(fid);
   figure,imshow(originalimage);
@@ -41,21 +44,18 @@ while ischar(tline)
     x_coordinates(i)=props(curve_index).PixelList(i,1);
     y_coordinates(i)=props(curve_index).PixelList(i,2);
   end
-  y_coordinates(1);
-  y_coordinates(no_pixels);
-  x_coordinates(1);
-  x_coordinates(no_pixels);
   m = y_coordinates(no_pixels)-y_coordinates(1)/x_coordinates(no_pixels)-x_coordinates(1);
+ 
   if y_coordinates(1)>y_coordinates(no_pixels)
     x1 = (1- y_coordinates(no_pixels))/m +x_coordinates(no_pixels);
     hold on 
       line([x_coordinates(no_pixels),x1],[y_coordinates(no_pixels),1],'Color','w','LineWidth',1)
-    %hold off
+    hold off
   else 
     x1 = (1- y_coordinates(1))/m +x_coordinates(1);
     hold on 
       line([x_coordinates(1),x1],[y_coordinates(1),1],'Color','w','LineWidth',1)
-    %hold off
+    hold off
   end
 
   %curve end points for initial curve
@@ -98,6 +98,8 @@ while ischar(tline)
     global type;
     global x_coordinates;
     global y_coordinates;
+    global finalx_cordinates
+    global finaly_cordinates;
     
     %%Function 1: nearest non-zero pixel from (x_curveend,y_curveend) 
     curve_lengths1 = cellfun(@numel,cc1.PixelIdxList);
@@ -180,6 +182,9 @@ while ischar(tline)
       y_coordinates1=y_coordinates1.+(y_curveend+1);
     end
     
+    finalx_cordinates = horzcat(finalx_cordinates, x_coordinates1);
+    finaly_cordinates = horzcat(finaly_cordinates, y_coordinates1);
+    
     %draw the curve
     hold on
       plot(x_coordinates1,y_coordinates1,'w');
@@ -206,8 +211,26 @@ while ischar(tline)
   while(cc1.NumObjects!=0)
     [x_curveend,y_curveend]=three_functions(originalimage,x_curveend,y_curveend);
   endwhile
+  y_length = size(binImage)(1);
+  y_left = finalx_cordinates(end) +finaly_cordinates(end) -1 ;
   
-  figure,imshow(curve);
+  if y_left> y_length
+    x_lower = finalx_cordinates(end) + finaly_cordinates(end) - y_length;
+    y_lower = y_length;
+    hold on 
+      line([finalx_cordinates(end),x_lower],[finaly_cordinates(end), y_lower],'Color','w','LineWidth',1)
+    hold off
+  else 
+    y_lower = finalx_cordinates(end) + finaly_cordinates(end) -1 ;
+    x_lower =1;
+    hold on 
+      line([finalx_cordinates(end),x_lower],[finaly_cordinates(end), y_lower],'Color','w','LineWidth',1)
+    hold off
+  end
+    x_coordinates = horzcat(x_coordinates, finalx_cordinates);
+    y_coordinates = horzcat(y_coordinates, finaly_cordinates);
+    p = polyfit(x_coordinates,y_coordinates,3);
 end
 fclose(fid);
+
 
